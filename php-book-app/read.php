@@ -6,9 +6,35 @@ $password = '';
 try {
     $pdo = new PDO($dsn, $user, $password);
 
-    $sql_select = 'SELECT * FROM books';
+    if (isset($_GET['order'])) {
+        $order = $_GET['order'];
+    } else {
+        $order = NULL;
+    }
 
-    $stmt_select = $pdo->query($sql_select);
+    if (isset($_GET['keyword'])) {
+        $keyword = $_GET['keyword'];
+    } else {
+        $keyword =NULL;
+    }
+
+
+    if ($order === 'desc') {
+        $sql_select = 'SELECT * FROM books WHERE book_name LIKE :keyword ORDER BY updated_at DESC';
+    } else {
+        $sql_select = 'SELECT * FROM books WHERE book_name LIKE :keyword ORDER BY updated_at ASC';
+    }
+
+
+    $stmt_select = $pdo->prepare($sql_select);
+
+    $partial_match = "%{$keyword}%";
+
+    $stmt_select->bindValue(':keyword', $partial_match, PDO::PARAM_STR);
+
+    $stmt_select->execute();
+
+    
     $books = $stmt_select->fetchAll(PDO::FETCH_ASSOC);
 } catch (PDOException $e) {
     exit($e->getMessage());
@@ -37,7 +63,15 @@ try {
             <h1>書籍一覧</h1>
             <div class="books-ui">
                 <div>
-
+                    <a href="read.php?order=desc">
+                        <img src="../images/desc.png" class='icon' alt="降順に並び替える">
+                    </a>
+                    <a href="read.php?order=asc">
+                        <img src="../images/asc.png" class='icon' alt="昇順に並び替える">
+                    </a>
+                    <form action="read.php" method="get" class="search-form">
+                        <input type="text" class="search-box" placeholder="書籍名で検索" name="keyword" value="<?= keyword ?>">
+                    </form>
                 </div>
                 <a href="create.php" class="btn">商品登録</a>
             </div>
