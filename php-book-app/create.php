@@ -3,6 +3,35 @@ $dsn = 'mysql:dbname=php_book_app;host=localhost;charset=utf8mb4';
 $user = 'root';
 $password = '';
 
+if (isset($_POST['submit'])) {
+    try {
+        $pdo = new PDO($dsn, $user, $password);
+
+        $sql_insert = '
+        INSERT INTO books (book_code, book_name, price, stock-quantity, genre-code)
+        VALUES (:book_code, :book_name, :price, :stock-quantity, :genre-code)
+        ';
+
+        $stmt_insert = $pdo->prepare($sql_insert);
+
+        $stmt_insert->bindValue(':book_code', $_POST['book_code'], PDO::PARAM_INT);
+        $stmt_insert->bindValue(':book_name', $_POST['book_name'], PDO::PARAM_STR);
+        $stmt_insert->bindValue(':price', $_POST['price'], PDO::PARAM_INT);
+        $stmt_insert->bindValue(':stock-quantity', $_POST['stock-quantity'], PDO::PARAM_INT);
+        $stmt_insert->bindValue(':genre-code', $_POST['genre-code'], PDO::PARAM_INT);
+    
+        $stmt_insert->execute();
+
+        $count = $stmt_insert->rowCount();
+
+        $message = "書籍を{$count}件登録しました";
+
+        header("Location: read.php?message={$message}");
+    } catch (PDOException $e) {
+        exit($e->getMessage());
+    }
+}
+
 try {
     $pdo = new PDO($dsn, $user, $password);
 

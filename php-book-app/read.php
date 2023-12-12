@@ -61,6 +61,11 @@ try {
     <main>
         <article class="books">
             <h1>書籍一覧</h1>
+            <?php
+            if (isset($_GET['message'])) {
+                echo "<p class='success'>{$_GET['message']}</p>";
+            }
+            ?>
             <div class="books-ui">
                 <div>
                     <a href="read.php?order=desc">
