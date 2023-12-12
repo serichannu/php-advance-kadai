@@ -8,8 +8,8 @@ if (isset($_POST['submit'])) {
         $pdo = new PDO($dsn, $user, $password);
 
         $sql_insert = '
-        INSERT INTO books (book_code, book_name, price, stock-quantity, genre-code)
-        VALUES (:book_code, :book_name, :price, :stock-quantity, :genre-code)
+        INSERT INTO books (book_code, book_name, price, stock_quantity, genre_code)
+        VALUES (:book_code, :book_name, :price, :stock_quantity, :genre_code)
         ';
 
         $stmt_insert = $pdo->prepare($sql_insert);
@@ -17,8 +17,8 @@ if (isset($_POST['submit'])) {
         $stmt_insert->bindValue(':book_code', $_POST['book_code'], PDO::PARAM_INT);
         $stmt_insert->bindValue(':book_name', $_POST['book_name'], PDO::PARAM_STR);
         $stmt_insert->bindValue(':price', $_POST['price'], PDO::PARAM_INT);
-        $stmt_insert->bindValue(':stock-quantity', $_POST['stock-quantity'], PDO::PARAM_INT);
-        $stmt_insert->bindValue(':genre-code', $_POST['genre-code'], PDO::PARAM_INT);
+        $stmt_insert->bindValue(':stock_quantity', $_POST['stock_quantity'], PDO::PARAM_INT);
+        $stmt_insert->bindValue(':genre_code', $_POST['genre_code'], PDO::PARAM_INT);
     
         $stmt_insert->execute();
 
@@ -70,20 +70,20 @@ try {
             </div>
             <form action="create.php" method="post" class="registration-form">
                 <div>
-                    <label for="book-code">書籍コード</label>
-                    <input type="number" name="book-code" min="0" max="100000000" required>
+                    <label for="book_code">書籍コード</label>
+                    <input type="number" name="book_code" min="0" max="100000000" required>
 
-                    <label for="book-name">書籍名</label>
-                    <input type="text" name="book-name" maxlength="50" required>
+                    <label for="book_name">書籍名</label>
+                    <input type="text" name="book_name" maxlength="50" required>
 
                     <label for="price">値段</label>
                     <input type="number" name="price" min="0" max="100000000" required>
 
-                    <label for="stock-quantity">在庫数</label>
-                    <input type="number" name="stock-quantity" min="0" max="100000000" required>
+                    <label for="stock_quantity">在庫数</label>
+                    <input type="number" name="stock_quantity" min="0" max="100000000" required>
 
-                    <label for="genre-code">ジャンルコード</label>
-                    <select name="genre-code" required>
+                    <label for="genre_code">ジャンルコード</label>
+                    <select name="genre_code" required>
                         <option disabled selected value>選択してください</option>
                         <?php
                         foreach ($genre_codes as $genre_code) {
