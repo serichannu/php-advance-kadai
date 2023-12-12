@@ -75,7 +75,7 @@ try {
                         <img src="../images/asc.png" class='icon' alt="昇順に並び替える">
                     </a>
                     <form action="read.php" method="get" class="search-form">
-                        <input type="text" class="search-box" placeholder="書籍名で検索" name="keyword" value="<?= keyword ?>">
+                        <input type="text" class="search-box" placeholder="書籍名で検索" name="keyword" value="<?= $keyword ?>">
                     </form>
                 </div>
                 <a href="create.php" class="btn">商品登録</a>

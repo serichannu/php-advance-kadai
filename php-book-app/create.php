@@ -90,6 +90,7 @@ try {
                             echo "<option value='{$genre_code}'>{$genre_code}</option>";
                         }
                         ?>
+                    </select>
                 </div>
                 <button type="submit" class="submit-btn" name="submit" value="create">登録</button>
             </form>
