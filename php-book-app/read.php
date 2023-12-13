@@ -87,6 +87,8 @@ try {
                     <th>値段</th>
                     <th>在庫数</th>
                     <th>ジャンルコード</th>
+                    <th>編集</th>
+                    <th>削除</th>
                 </tr>
                 <?php
                 foreach ($books as $book) {
@@ -97,6 +99,9 @@ try {
                     <td>{$book['price']}</td>
                     <td>{$book['stock_quantity']}</td>
                     <td>{$book['genre_code']}</td>
+                    <td><a href='update.php?id={$book['id']}'><img src='../images/edit.png' alt='編集' class='icon'></a></td>
+                    <td><a href='delete.php?id={$book['id']}'><img src='../images/delete.png' alt='削除' class='icon'></a></td>
+
                     </tr>
                     ";
                     echo $table_row;
